@@ -11,6 +11,7 @@ const createItems = (row, column) => {
     items: Array.from({ length: column }, (_, i) => ({
       key: getId(),
       text: "item" + row + "-" + i,
+      width: 250,
     })),
   };
 };
@@ -29,10 +30,12 @@ function App() {
 
     // 四周拉伸
     const doDrag = (e) => {
-      const newHeight = startHeight + e.clientY - startY;
       const newWidth = startHeight + e.clientY - startY;
-      e.target.style.height = newHeight + "px";
-      e.target.style.width = newWidth + "px";
+      setStore(
+        rowIndex,
+        "items",
+        item.items.map((i) => ({ ...i, width: newWidth }))
+      );
     };
 
     const stopDrag = () => {
@@ -42,6 +45,7 @@ function App() {
 
     document.addEventListener("mousemove", doDrag);
     document.addEventListener("mouseup", stopDrag);
+  };
 
   return (
     <div class={styles.App}>
@@ -75,7 +79,12 @@ function App() {
               </li>
               {item.items.map((subItem) => {
                 return (
-                  <li key={subItem.key}>
+                  <li
+                    key={subItem.key}
+                    style={{
+                      width: subItem.width + "px",
+                    }}
+                  >
                     <input
                       type="text"
                       value={subItem.text}
