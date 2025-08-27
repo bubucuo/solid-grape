@@ -25,18 +25,27 @@
 
 .container {
   text-align: left;
-  li {
-    border: solid 1px #ccc;
-    margin: 10px;
-    padding: 10px;
-    /* 让边框可四个方向拉伸，设置css */
-    resize: both;
-    overflow: auto;
-  }
 }
 
 .row {
   display: flex;
+  li {
+    border: solid 1px #ccc;
+    margin: 10px;
+    padding: 10px;
+    resize: both;
+    overflow: auto;
+    display: flex;
+  }
+  /* delete item固定宽度，input自适应 */
+  button {
+    width: 100px;
+    flex-shrink: 0;
+  }
+  input {
+    flex-grow: 1;
+    min-width: 0;
+  }
 }
 
 @keyframes logo-spin {
