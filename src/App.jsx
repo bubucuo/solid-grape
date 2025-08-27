@@ -21,6 +21,28 @@ function App() {
     createItems(1, 1),
     createItems(2, 3),
   ]);
+
+  const stretch = (e) => {
+    e.preventDefault();
+    const startY = e.clientY;
+    const startHeight = e.target.clientHeight;
+
+    // 四周拉伸
+    const doDrag = (e) => {
+      const newHeight = startHeight + e.clientY - startY;
+      const newWidth = startHeight + e.clientY - startY;
+      e.target.style.height = newHeight + "px";
+      e.target.style.width = newWidth + "px";
+    };
+
+    const stopDrag = () => {
+      document.removeEventListener("mousemove", doDrag);
+      document.removeEventListener("mouseup", stopDrag);
+    };
+
+    document.addEventListener("mousemove", doDrag);
+    document.addEventListener("mouseup", stopDrag);
+
   return (
     <div class={styles.App}>
       <button
@@ -35,7 +57,7 @@ function App() {
         {store.map((item, rowIndex) => {
           return (
             <ul class={styles.row} key={item.key}>
-              <li>
+              <li onMouseDown={stretch}>
                 {rowIndex}
                 <button
                   onClick={() =>
