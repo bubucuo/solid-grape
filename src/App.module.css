@@ -30,6 +30,10 @@
   }
 }
 
+.row {
+  display: flex;
+}
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
